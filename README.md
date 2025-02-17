@@ -1,7 +1,7 @@
 # TPO_P2_Verano_grupo_08
  Repositorio creado para la entrega del Trabajo Práctico Obligatorio de Programación II, Verano 2025.
 
- ### Integrantes:
+ ### **Integrantes**:
  
 - Lara, Facundo Damian: 1176633
 - Larramendi, Tobias Valentin:  1143248
