@@ -45,18 +45,19 @@ public class DynamicQueueOfQueue implements QueueOfQueue {
         }
     }
 
-    private void copyQueuesTo(DynamicQueueOfQueue target) {
-        Node<Queue> current = this.first;
+    @Override
+    public QueueOfQueue concatenate(DynamicQueueOfQueue qoq1, DynamicQueueOfQueue qoq2) {
+        DynamicQueueOfQueue result = new DynamicQueueOfQueue();
+        Node<Queue> current = qoq1.first;
         while (current != null) {
-            target.add(current.getValue());
+            result.add(current.getValue());
             current = current.getNext();
         }
-    }
-
-    public static QueueOfQueue concatenate(DynamicQueueOfQueue qoq1, DynamicQueueOfQueue qoq2) {
-        DynamicQueueOfQueue result = new DynamicQueueOfQueue();
-        qoq1.copyQueuesTo(result);
-        qoq2.copyQueuesTo(result);
+        current = qoq2.first;
+        while (current != null) {
+            result.add(current.getValue());
+            current = current.getNext();
+        }
         return result;
     }
 
@@ -65,40 +66,45 @@ public class DynamicQueueOfQueue implements QueueOfQueue {
         DynamicQueue flatQueue = new DynamicQueue();
         Node<Queue> current = first;
         while (current != null) {
-            DynamicQueue aux = new DynamicQueue();
-            Queue queue = current.getValue();
-            while (!queue.isEmpty()) {
-                int elem = queue.getFirst();
-                queue.remove();
+            Queue subQueue = current.getValue();
+            DynamicStack tempStack = new DynamicStack();
+            while (!subQueue.isEmpty()) {
+                int elem = subQueue.getFirst();
+                subQueue.remove();
                 flatQueue.add(elem);
-                aux.add(elem);
+                tempStack.add(elem);
             }
-            while (!aux.isEmpty()) {
-                int elem = aux.getFirst();
-                aux.remove();
-                queue.add(elem);
+            DynamicStack restoreStack = new DynamicStack();
+            while (!tempStack.isEmpty()) {
+                restoreStack.add(tempStack.getTop());
+                tempStack.remove();
+            }
+            while (!restoreStack.isEmpty()) {
+                int elem = restoreStack.getTop();
+                restoreStack.remove();
+                subQueue.add(elem);
             }
             current = current.getNext();
         }
         return flatQueue;
     }
 
-    private void reverseQueue(Queue q) {
-        if (q.isEmpty()) return;
-        int elem = q.getFirst();
-        q.remove();
-        reverseQueue(q);
-        q.add(elem);
-    }
-
     @Override
     public void reverseWithDepth() {
         Node<Queue> current = first;
         while (current != null) {
-            reverseQueue(current.getValue());
+            Queue subQueue = current.getValue();
+            DynamicStack tempStack = new DynamicStack();
+            while (!subQueue.isEmpty()) {
+                tempStack.add(subQueue.getFirst());
+                subQueue.remove();
+            }
+            while (!tempStack.isEmpty()) {
+                subQueue.add(tempStack.getTop());
+                tempStack.remove();
+            }
             current = current.getNext();
         }
-
         Node<Queue> prev = null;
         current = first;
         last = first;
