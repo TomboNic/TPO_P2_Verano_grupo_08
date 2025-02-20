@@ -5,7 +5,7 @@ import java.util.Random;
 public class d_StaticRepeatedSet implements RepeatedSet {
     private static final int MAX = 10000;
 
-    // We use two paralells arrays: Elements and Quantities.
+    // We use two parallels arrays: Elements and Quantities.
     private final int[] elements;
     private final int[] quantities;
     private int uniqueCount; // Quantity of unique elements.
@@ -38,7 +38,7 @@ public class d_StaticRepeatedSet implements RepeatedSet {
             quantities[index] += quantity;
         } else {
             if (uniqueCount >= MAX) {
-                throw new RuntimeException("El conjunto está lleno");
+                throw new RuntimeException("The set is full");
             }
             elements[uniqueCount] = element;
             quantities[uniqueCount] = quantity;
@@ -56,7 +56,7 @@ public class d_StaticRepeatedSet implements RepeatedSet {
         if (index != -1) {
             quantities[index] -= quantity;
             if (quantities[index] <= 0) {
-                // Si la cantidad llega a 0 o menos, eliminamos el elemento
+                // If quantity turns 0, we delete the element.
                 elements[index] = elements[uniqueCount - 1];
                 quantities[index] = quantities[uniqueCount - 1];
                 uniqueCount--;
@@ -80,10 +80,10 @@ public class d_StaticRepeatedSet implements RepeatedSet {
     @Override
     public int choose() {
         if (isEmpty()) {
-            throw new RuntimeException("No se puede elegir un elemento de un conjunto vacío");
+            throw new RuntimeException("can't choose an element from an empty set");
         }
 
-        // Elegimos considerando las repeticiones
+        // Choose considering the repeated
         int totalElements = getTotalElements();
         int randomNum = random.nextInt(totalElements);
 
