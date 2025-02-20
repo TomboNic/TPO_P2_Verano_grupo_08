@@ -1,7 +1,7 @@
 package org.example.ejercicio02.util;
 
-import org.example.ejercicio2.model.Set;
-import org.example.ejercicio2.model.StaticSet;
+import org.example.ejercicio02.model.Set;
+import org.example.ejercicio02.model.StaticSet;
 
 public class SetUtil<T> {
 

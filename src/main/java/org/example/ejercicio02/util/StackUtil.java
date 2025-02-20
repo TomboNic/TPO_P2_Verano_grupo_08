@@ -1,7 +1,8 @@
 package org.example.ejercicio02.util;
 
-import org.example.ejercicio2.model.Stack;
-import org.example.ejercicio2.model.StaticStack;
+
+import org.example.ejercicio02.model.Stack;
+import org.example.ejercicio02.model.StaticStack;
 
 public class StackUtil<T> {
 
