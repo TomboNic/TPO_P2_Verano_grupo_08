@@ -1,11 +1,11 @@
 package org.example.ejercicio02.model;
 
-public interface QueueWithPriority<T> {
+public interface QueueWithPriority<T, P> {
 
-    void enqueue(T element, T priority);
+    void enqueue(T element, P priority);
     void dequeue();
     T getFirst();
-    T getPriority();
+    P getPriority();
     boolean isEmpty();
 
 }

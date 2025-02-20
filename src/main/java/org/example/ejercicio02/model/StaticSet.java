@@ -1,6 +1,5 @@
 package org.example.ejercicio02.model;
 
-import java.util.Comparator;
 import java.util.Random;
 
 public class StaticSet<T> implements Set<T> {
@@ -9,19 +8,17 @@ public class StaticSet<T> implements Set<T> {
     private final T[] array;
     private int count;
     private final Random random;
-    private final Comparator<T> comparator;
 
-    public StaticSet(Comparator<T> comparator) {
+    public StaticSet() {
         array = (T[]) new Object[MAX];
         count = 0;
         random = new Random();
-        this.comparator = comparator;
     }
 
     @Override
     public void add(T element) {
         for (int i = 0; i < count; i++) {
-            if (comparator.compare(array[i], element) == 0) {
+            if (array[i].equals(element)) {
                 return;
             }
         }
@@ -33,7 +30,7 @@ public class StaticSet<T> implements Set<T> {
     @Override
     public void remove(T element) {
         for (int i = 0; i < count; i++) {
-            if (comparator.compare(array[i], element) == 0) {
+            if (array[i].equals(element)) {
                 array[i] = array[count - 1];
                 count--;
                 return;
