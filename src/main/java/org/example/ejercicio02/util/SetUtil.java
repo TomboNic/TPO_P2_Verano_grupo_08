@@ -1,16 +1,13 @@
 package org.example.ejercicio02.util;
 
-
 import org.example.ejercicio02.model.Set;
 import org.example.ejercicio02.model.StaticSet;
 
-import java.util.Comparator;
-
 public class SetUtil<T> {
 
-    public static <T> Set<T> copy(Set<T> set, Comparator<T> comparator) {
-        Set<T> copy = new StaticSet<>(comparator);
-        Set<T> aux = new StaticSet<>(comparator);
+    public static <T> Set<T> copy(Set<T> set) {
+        Set<T> copy = new StaticSet<>();
+        Set<T> aux = new StaticSet<>();
 
         while(!set.isEmpty()) {
             T element = set.choose();
@@ -28,8 +25,8 @@ public class SetUtil<T> {
         return copy;
     }
 
-    public static <T> void print(Set<T> set, Comparator<T> comparator) {
-        Set<T> copy = copy(set, comparator);
+    public static <T> void print(Set<T> set) {
+        Set<T> copy = copy(set);
 
         System.out.print("[ ");
         while (!copy.isEmpty()) {

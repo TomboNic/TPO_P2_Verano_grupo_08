@@ -1,23 +1,21 @@
 package org.example.ejercicio02.model;
-import java.util.Comparator;
 
-public class StaticQueueWithPriority<T> implements QueueWithPriority<T> {
+public class StaticQueueWithPriority<T, P extends Comparable<P>> implements QueueWithPriority<T, P> {
 
     private static final int MAX = 10000;
-    private final T[] elements;
-    private final T[] priorities;
-    private final Comparator<T> comparator;
+    private final Object[] elements;
+    private final Object[] priorities;
     private int count;
 
-    public StaticQueueWithPriority(Comparator<T> comparator) {
-        elements = (T[]) new Object[MAX];
-        priorities = (T[]) new Object[MAX];
-        this.comparator = comparator;
+    public StaticQueueWithPriority() {
+        elements = new Object[MAX];
+        priorities = new Object[MAX];
         count = 0;
     }
 
     @Override
-    public void enqueue(T element, T priority) {
+    @SuppressWarnings("unchecked")
+    public void enqueue(T element, P priority) {
         if (count == MAX) {
             throw new RuntimeException("No se puede agregar el elemento porque la cola está llena");
         }
@@ -29,15 +27,15 @@ public class StaticQueueWithPriority<T> implements QueueWithPriority<T> {
             return;
         }
 
-        if (comparator.compare(priorities[count - 1], priority) <= 0) {
+        if (((P)priorities[count - 1]).compareTo(priority) <= 0) {
             elements[count] = element;
             priorities[count] = priority;
             count++;
             return;
         }
 
-        if (comparator.compare(priorities[0], priority) > 0) {
-            for (int i = count - 1; i > 0; i--) {
+        if (((P)priorities[0]).compareTo(priority) > 0) {
+            for (int i = count - 1; i >= 0; i--) {
                 elements[i + 1] = elements[i];
                 priorities[i + 1] = priorities[i];
             }
@@ -51,7 +49,7 @@ public class StaticQueueWithPriority<T> implements QueueWithPriority<T> {
         int index = findIndex(priority);
         if (index != -1) {
             int candidate = index;
-            while (candidate < count && comparator.compare(priorities[candidate], priority) == 0) {
+            while (candidate < count && ((P)priorities[candidate]).compareTo(priority) == 0) {
                 candidate++;
             }
 
@@ -67,7 +65,7 @@ public class StaticQueueWithPriority<T> implements QueueWithPriority<T> {
         }
 
         int candidate = 0;
-        while (candidate < count && comparator.compare(priorities[candidate], priority) <= 0) {
+        while (candidate < count && ((P)priorities[candidate]).compareTo(priority) <= 0) {
             candidate++;
         }
 
@@ -81,13 +79,13 @@ public class StaticQueueWithPriority<T> implements QueueWithPriority<T> {
         count++;
     }
 
-    private int findIndex(T priority) {
+    @SuppressWarnings("unchecked")
+    private int findIndex(P priority) {
         for(int i = 0; i < this.count; i++) {
-            if(comparator.compare(priorities[i], priority) == 0) {
+            if(((P)priorities[i]).compareTo(priority) == 0) {
                 return i;
             }
         }
-
         return -1;
     }
 
@@ -106,26 +104,27 @@ public class StaticQueueWithPriority<T> implements QueueWithPriority<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T getFirst() {
         if (isEmpty()) {
             throw new RuntimeException("No se puede obtener el elemento de una cola vacía");
         }
 
-        return elements[0];
+        return (T)elements[0];
     }
 
     @Override
-    public T getPriority() {
+    @SuppressWarnings("unchecked")
+    public P getPriority() {
         if (isEmpty()) {
             throw new RuntimeException("No se puede obtener la prioridad de una cola vacía");
         }
 
-        return priorities[0];
+        return (P)priorities[0];
     }
 
     @Override
     public boolean isEmpty() {
         return count == 0;
     }
-
 }
