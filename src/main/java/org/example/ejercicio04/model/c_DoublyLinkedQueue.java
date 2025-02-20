@@ -1,8 +1,10 @@
-package org.example.ejercicio04;
+package org.example.ejercicio04.model;
+
+import org.example.ejercicio04.model.nodes.DoubleNode;
 
 public class c_DoublyLinkedQueue implements Queue {
     private DoubleNode first;
-    private DoubleNode last;  // Mantenemos una referencia al último nodo
+    private DoubleNode last;  // Keep the refference to the last node
 
     public c_DoublyLinkedQueue() {
         this.first = null;
@@ -12,7 +14,7 @@ public class c_DoublyLinkedQueue implements Queue {
     @Override
     public int getFirst() {
         if (isEmpty()) {
-            throw new RuntimeException("No se puede obtener el primero de una cola vacía");
+            throw new RuntimeException("Can't obtain the first from an empty queue");
         }
         return this.first.getValue();
     }
@@ -27,11 +29,11 @@ public class c_DoublyLinkedQueue implements Queue {
         DoubleNode newNode = new DoubleNode(value, null, null);
 
         if (isEmpty()) {
-            // Si la cola está vacía, el nuevo nodo es tanto el primero como el último
+            // If the queue is empty, the first node will assume the atribute first, and last.
             this.first = newNode;
             this.last = newNode;
         } else {
-            // Agregamos el nuevo nodo al final y actualizamos los enlaces
+            // Add the new node at the end, and update the links.
             newNode.setPrevious(this.last);
             this.last.setNext(newNode);
             this.last = newNode;
@@ -41,7 +43,7 @@ public class c_DoublyLinkedQueue implements Queue {
     @Override
     public void remove() {
         if (isEmpty()) {
-            throw new RuntimeException("No se puede desacolar de una cola vacía");
+            throw new RuntimeException("Can't remove from an empty queue");
         }
 
         // Si solo hay un elemento
@@ -51,15 +53,15 @@ public class c_DoublyLinkedQueue implements Queue {
             return;
         }
 
-        // Removemos el primer elemento y actualizamos los enlaces
+        // Remove the first element and update the links
         this.first = this.first.getNext();
         this.first.setPrevious(null);
     }
 
-    // Método adicional para obtener el último elemento
+    // Get the last element
     public int getLast() {
         if (isEmpty()) {
-            throw new RuntimeException("No se puede obtener el último de una cola vacía");
+            throw new RuntimeException("Can't get the last element from an empty queue");
         }
         return this.last.getValue();
     }

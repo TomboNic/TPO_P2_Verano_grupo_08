@@ -1,8 +1,11 @@
-package org.example.ejercicio04;
+package org.example.ejercicio04.util;
+
+import org.example.ejercicio04.model.Set;
+import org.example.ejercicio04.model.b_SuperSet;
 
 import java.util.Random;
 
-public class b_SuperSet implements Set {
+public class b_SuperSetUtil implements Set {
 
     private static final int MAX = 10000;
 
@@ -10,13 +13,13 @@ public class b_SuperSet implements Set {
     private int count;
     private final Random random;
 
-    public b_SuperSet() {
+    public b_SuperSetUtil() {
         this.array = new int[MAX];
         this.count = 0;
         this.random = new Random();
     }
 
-    public boolean isSubset(b_SuperSet otherSet) {
+    public boolean isSubset(b_SuperSetUtil otherSet) {
         // Un conjunto vacío es subconjunto de cualquier conjunto
         if (otherSet.isEmpty()) {
             return true;
@@ -44,10 +47,10 @@ public class b_SuperSet implements Set {
     }
 
     @Override
-    public Set Complement(b_SuperSet otherSet) {
+    public Set Complement(b_SuperSetUtil otherSet) {
         Set thisCopy = copy(this);
         Set copy = copy(otherSet);
-        Set complementSet = new b_SuperSet();
+        Set complementSet = new b_SuperSetUtil();
 
         if(this.isSubset(otherSet)){
             throw new RuntimeException("No se puede calcular el complemento de un conjunto que no es subconjunto");
@@ -64,45 +67,6 @@ public class b_SuperSet implements Set {
         return complementSet;
     }
 
-    @Override
-    public void add(int a) {
-        for(int i = 0; i < count; i++) {
-            if(array[i] == a) {
-                return;
-            }
-        }
-        array[count] = a;
-        count++;
-    }
-
-    @Override
-    public void remove(int a) {
-        for(int i = 0; i < count; i++) {
-            if(array[i] == a) {
-                array[i] = array[count - 1];
-                count--;
-                return;
-            }
-        }
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return this.count == 0;
-    }
-
-    @Override
-    public int choose() {
-        if(this.isEmpty()) {
-            throw new RuntimeException("No se puede elegir un elemento de un conjunto vacío");
-        }
-        if(this.count == 1) {
-            return array[0];
-        }
-        int randomIndex = random.nextInt(count);
-        return array[randomIndex];
-    }
-
     public static boolean in(int element, Set set) {
         Set copy = copy(set);
         while(!copy.isEmpty()) {
@@ -116,8 +80,8 @@ public class b_SuperSet implements Set {
     }
 
     public static Set copy(Set set) {
-        Set copy = new b_SuperSet();
-        Set aux = new b_SuperSet();
+        Set copy = new b_SuperSetUtil();
+        Set aux = new b_SuperSetUtil();
 
         while(!set.isEmpty()) {
             int element = set.choose();

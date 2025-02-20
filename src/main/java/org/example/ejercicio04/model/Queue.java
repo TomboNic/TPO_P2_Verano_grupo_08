@@ -1,4 +1,4 @@
-package org.example.ejercicio04;
+package org.example.ejercicio04.model;
 
 public interface Queue {
 

@@ -1,4 +1,4 @@
-package org.example.ejercicio04;
+package org.example.ejercicio04.model.nodes;
 
 public class Node<T> {
     private T value;

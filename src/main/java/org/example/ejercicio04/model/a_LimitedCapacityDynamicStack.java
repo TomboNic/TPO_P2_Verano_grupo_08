@@ -1,4 +1,6 @@
-package org.example.ejercicio04;
+package org.example.ejercicio04.model;
+
+import org.example.ejercicio04.model.nodes.Node;
 
 public class a_LimitedCapacityDynamicStack implements Stack {
 
