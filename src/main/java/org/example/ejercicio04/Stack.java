@@ -6,5 +6,7 @@ public interface Stack {
     boolean isEmpty();
     void add(int a);
     void remove();
+    int getCapacity();
+    int getMaxCapacity();
 
 }

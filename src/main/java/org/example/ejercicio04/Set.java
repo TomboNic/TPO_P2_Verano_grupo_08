@@ -1,7 +1,6 @@
 package org.example.ejercicio04;
 
 public interface Set {
-
     void add(int a);
     void remove(int a);
     boolean isEmpty();
