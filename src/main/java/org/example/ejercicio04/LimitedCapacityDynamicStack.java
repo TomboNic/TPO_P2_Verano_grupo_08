@@ -3,14 +3,16 @@ import org.example.ejercicio04.Node;
 
 public class LimitedCapacityDynamicStack implements Stack {
 
-    private static int capacity = 1;
+    public static int maxCapacity;
+    public static int capacity = 1;
     private Node top;
 
-    public LimitedCapacityDynamicStack(int capacity) {
-        if (capacity <= 0) {
+    public LimitedCapacityDynamicStack(int maxCapacity) {
+        if (maxCapacity <= 0) {
             throw new IllegalArgumentException("Capacity must be greater than 0");
         }
-        this.capacity = capacity;
+        this.maxCapacity = maxCapacity;
+        this.capacity=0;
         this.top = null;
     }
 
@@ -30,7 +32,13 @@ public class LimitedCapacityDynamicStack implements Stack {
 
     @Override
     public void add(int a) {
+        if (this.getCapacity() >= maxCapacity) {
+            throw new RuntimeException("Max capacity reached. Can't add element.");
+        }
         this.top = new Node(a, this.top);
+        capacity++;
+
+
     }
 
     @Override
@@ -39,5 +47,16 @@ public class LimitedCapacityDynamicStack implements Stack {
             throw new RuntimeException("Can't remove from an empty stack");
         }
         this.top = this.top.getNext();
+        capacity--;
     }
+
+    @Override
+    public int getCapacity() {
+        return capacity;
+    }
+    public int getMaxCapacity(){
+        return maxCapacity;
+    }
+
+
 }
