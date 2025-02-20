@@ -6,5 +6,6 @@ public interface Queue {
     boolean isEmpty();
     void add(int a);
     void remove();
+    int getLast();
 
 }

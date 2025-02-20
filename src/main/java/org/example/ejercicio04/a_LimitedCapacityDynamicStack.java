@@ -1,13 +1,12 @@
 package org.example.ejercicio04;
-import org.example.ejercicio04.Node;
 
-public class LimitedCapacityDynamicStack implements Stack {
+public class a_LimitedCapacityDynamicStack implements Stack {
 
     public static int maxCapacity;
     public static int capacity = 1;
     private Node top;
 
-    public LimitedCapacityDynamicStack(int maxCapacity) {
+    public a_LimitedCapacityDynamicStack(int maxCapacity) {
         if (maxCapacity <= 0) {
             throw new IllegalArgumentException("Capacity must be greater than 0");
         }

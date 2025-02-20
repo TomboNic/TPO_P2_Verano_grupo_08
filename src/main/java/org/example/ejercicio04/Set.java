@@ -1,9 +1,11 @@
 package org.example.ejercicio04;
 
 public interface Set {
+    Set Complement(b_SuperSet otherset);
     void add(int a);
     void remove(int a);
     boolean isEmpty();
+    boolean isSubset(b_SuperSet set);
 
     /**
      * Precondición: No se puede elegir un elemento de un conjunto vacío
