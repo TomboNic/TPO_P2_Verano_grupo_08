@@ -10,7 +10,7 @@ public class DynamicQueueOfStacks implements QueueOfStacks {
         if (this.isEmpty()) {
             throw new RuntimeException("No se puede obtener el primero de una cola vacia");
         }
-        return this.first.getValue();
+        return 0;
     }
 
     @Override
